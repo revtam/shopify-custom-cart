@@ -1,0 +1,122 @@
+<!-- CDN -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<script type="text/javascript">
+  if(typeof jQuery == "undefined") {
+  	document.write(\"<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'><\/script>\");
+  }
+</script>
+<!-- CDN END -->
+
+<div class="rt-custom-cart-overlay"></div>
+<div class="rt-custom-cart-container" id="rt-custom-cart-container">
+  <div class="rt-custom-cart-top-container">
+    <div class="rt-top-content">
+      <p class="rt-top-text">Cart</p>
+    </div>
+    <div class="rt-top-icon-container">
+      <span class="material-icons-outlined">close</span>
+    </div>
+  </div>
+  {% if section.settings.banner-enable %}
+    <div class="rt-custom-cart-banner">
+      <div class="rt-custom-cart-banner-wrap">
+        <div class="rt-custom-cart-banner-move">
+          {% for block in section.blocks %}
+            {% if block.type == 'banner_text' %}
+              <div class="rt-custom-cart-banner-item">{{ block.settings.title }}</div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="rt-main-item-container">
+    <div class="rt-item-container">
+    </div>
+    <div class="rt-addon-container"> 
+      <h3 class="rt-addon-heading">{{ section.settings.addon-title }}</h3> 
+      <div class="rt-addon-product-container">
+        {% for block in section.blocks %}
+        
+          {% comment %} static addon product(s) {% endcomment %}
+          {% if block.type == 'addon_products' and section.settings.rt-addon-product-based %}  
+            {% assign addon_product = all_products[block.settings.addon-product] %}
+            {% assign addon_current_variant = addon_product.selected_or_first_available_variant %}
+            {% assign addon_featured_media = addon_product.selected_or_first_available_variant.featured_media | default: addon_product.featured_media %}
+            {% if addon_product.available %}
+              <div class="rt-addon-product"> 
+                <a href="{{ addon_product.url }}"><img class="rt-addon-product-image" src="{{ addon_featured_media | img_url: '250x' , scale:'2x' }}" alt="caption_img"></a>
+                <a href="{{ addon_product.url }}"><h4 class="rt-addon-product-title">{{ addon_product.title }}</h4></a>
+                <a href="{{ addon_product.url }}"><h4 class="rt-addon-product-price">{{ addon_product.price | money }}</h4></a>
+                <a class="rt-addon-product-button-container" href="{{ addon_product.url }}"><button class="rt-addon-product-button" data-product-id="{{ addon_current_variant.id }}">View Item</button></a>
+              </div>
+            {% endif %}
+          {% endif %}
+
+          {% comment %} randomly chooses a product from a given collection {% endcomment %}
+          {% if block.type == 'addon_collections' and section.settings.rt-addon-collection-based %} 
+            {% assign min = 1 %}
+            {% assign max = 5 %}
+            {% assign diff = max | minus: min %}
+            {% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min %}
+            {% comment %} {% assign given_collection = collections[block.settings.addon-collection] %} {% endcomment %}
+            {% for collection_product in collections[block.settings.addon-collection].products %}
+              {% if randomNumber == forloop.index %}
+                {% assign addon_product = collection_product %}
+                {% if addon_product.available %}
+                  {% assign addon_current_variant = addon_product.selected_or_first_available_variant %}
+                  {% assign addon_featured_media = addon_product.selected_or_first_available_variant.featured_media | default: addon_product.featured_media %}
+                  <div class="rt-addon-product"> 
+                    <a href="{{addon_product.url}}"><img  class="rt-addon-product-image" src="{{ addon_featured_media | img_url: '250x' , scale:'2x' }}" alt="caption_img"> </a>
+                    <a href="{{addon_product.url}}"> <h4 class="rt-addon-product-title">{{addon_product.title}}</h4> </a>
+                    <a href="{{addon_product.url}}"> <h4 class="rt-addon-product-price">{{addon_product.price | money }}</h4> </a>
+                    <a class="rt-addon-product-button-container" href="{{addon_product.url}}"><button class="rt-addon-product-button" data-product-id="{{addon_current_variant.id}}">View Item</button></a>
+                  </div>
+                  {% break %}
+                {% else %}
+                  {% assign min = 6 %}
+                  {% assign max = 10 %}
+                  {% assign diff = max | minus: min %}
+                  {% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min %}
+                  {% continue %}
+                {% endif %}
+              {% endif %}
+            {% endfor%}  
+          {% endif %}
+
+        {% endfor %}
+      </div> 
+    </div>
+  </div>
+
+  <div class="rt-custom-cart-bottom-container">
+    <div class="rt-content">
+      <div class="rt-subtotal-container">
+        <div class="rt-subtotal-subcontainer">
+          <p class="rt-subtotal">Subtotal</p>
+          <span class="rt-subtotal-price">{{ cart.total_price | money }}</span>
+        </div>
+        <span class="rt-subtotal-shipping">Shipping and taxes will be calculated at checkout</span>
+      {% if section.settings.cart-offer == true %}
+        <span class="custom-cart-offer">Spend <strong>${{ section.settings.cart-offer-price }}</strong> to get a <strong>Free Item!</strong></span>
+        {% if section.settings.cart-offer-product != blank and section.settings.cart-offer-product.available == false %}
+          <div class="out-of-stock-error">Sorry, the free item is out of stock!</div>
+        {% endif %}
+      {% endif %}
+      </div>
+    {% if section.settings.cart-offer  == true %}
+      <div class="rt-bar-container">
+        <div class="rt-progress-bar">
+        </div>
+      </div>
+    {% endif %}
+    </div>
+    <div class="rt-button-container">
+      <a href="/checkout" class="rt-button"><span class="material-icons-outlined">lock</span> {{ section.settings.button-checkout-text }}</a>  
+    </div>
+  </div>
+</div>
+
+
+
+

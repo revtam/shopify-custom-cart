@@ -1,0 +1,237 @@
+{% schema %}
+  {
+    "name": "Custom Cart",
+    "settings": [
+      {
+        "id": "topbar-background",
+        "type": "color",
+        "label": "Top bar background color",
+        "default": "#fff"
+      },
+      {
+        "id": "topbar-text-color",
+        "type": "color",
+        "label": "Top bar text color",
+        "default": "#000"
+      },
+      {
+        "id": "banner-enable",
+        "type": "checkbox",
+        "label": "Enable banner",
+        "default": true
+      },
+      {
+        "id": "banner-background",
+        "type": "color",
+        "label": "Banner background color",
+        "default": "#eee"
+      },
+      {
+        "id": "banner-text-color",
+        "type": "color",
+        "label": "Banner text color",
+        "default": "#000"
+      },
+      {
+        "id": "banner-horizontal",
+        "type": "checkbox",
+        "label": "Place multiple banners horizontally next to each other",
+        "default": false
+      },
+      {
+        "id": "banner-move",
+        "type": "checkbox",
+        "label": "Banner moving in loops",
+        "default": false
+      },
+      {
+        "id": "cart-text-color",
+        "type": "color",
+        "label": "Cart text color",
+        "default": "#000"
+      },
+      {
+        "id": "addons-enabled",
+        "type": "checkbox",
+        "label": "Enable algorithmically selected addons",
+        "default": true
+      },
+      {
+        "id": "addon-title",
+        "type": "text",
+        "label": "Addon heading text",
+        "default": "Complete your set"
+      },
+      {
+        "id": "addon-heading-color",
+        "type": "color",
+        "label": "Addon heading color",
+        "default": "#5B4C45"
+      },
+      {
+        "id": "addon-background-color",
+        "type": "color",
+        "label": "Addon background color",
+        "default": "#f8f5ff"
+      },
+      {
+        "id": "addon-text-color",
+        "type": "color",
+        "label": "Addon text color",
+        "default": "#5B4C45"
+      },
+      {
+        "id": "addon-button-background-color",
+        "type": "color",
+        "label": "Addon button background color",
+        "default": "#000"
+      },
+      {
+        "id": "addon-button-text-color",
+        "type": "color",
+        "label": "Addon button text color",
+        "default": "#fff"
+      },
+      {
+        "id": "addon-button-border-color",
+        "type": "color",
+        "label": "Addon button border color",
+        "default": "#fff"
+      },
+      {
+        "id": "addon-button-hover-background-color",
+        "type": "color",
+        "label": "Addon button background color when hovered over",
+        "default": "#000"
+      },
+      {
+        "id": "addon-button-hover-text-color",
+        "type": "color",
+        "label": "Addon button text color when hovered over",
+        "default": "#fff"
+      },
+      {
+        "id": "addon-button-hover-border-color",
+        "type": "color",
+        "label": "Addon button border color when hovered over",
+        "default": "#fff"
+      },
+      {
+        "id": "addproduct-button-color",
+        "type": "color",
+        "label": "Add addon product button background color",
+        "default": "#000"
+      },
+      {
+        "id": "addproduct-button-text-color",
+        "type": "color",
+        "label": "Add addon product button text color",
+        "default": "#000"
+      },
+      { 
+        "id": "cart-offer",
+        "type": "checkbox",
+        "label": "Enable special offer over a given cart value",
+        "default": true
+      },
+      {
+        "id": "cart-offer-price",
+        "type": "text",
+        "label": "Special offer cart value price limit",
+        "default": "60.00"
+      },
+      {
+        "id": "cart-offer-reached-message",
+        "type": "text",
+        "label": "Message when special offer price limit is reached",
+        "default": "Congrats, you are eligible for our special offer!"
+      },
+      {
+        "id": "cart-offer-product",
+        "type": "product",
+        "label": "Product for the special offer [Optional]"
+      },
+      {
+        "id": "cart-bottom-background",
+        "type": "color",
+        "label": "Cart bottom background color",
+        "default": "#fff"
+      },
+      {
+        "id": "cart-bottom-border",
+        "type": "color",
+        "label": "Cart bottom border color",
+        "default": "#000"
+      },
+      {
+        "id": "progress-bar-color",
+        "type": "color",
+        "label": "Progress bar color",
+        "default": "#000"
+      },
+      {
+        "id": "button-checkout-text",
+        "type": "text",
+        "label": "Checkout button text",
+        "default": "Go To Checkout"
+      },
+      {
+        "id": "button-checkout-background-color",
+        "type": "color",
+        "label": "Checkout button background color",
+        "default": "#000"
+      },
+      {
+        "id": "button-checkout-border",
+        "type": "color",
+        "label": "Checkout button border color",
+        "default": "#000"
+      },
+      {
+        "id": "button-checkout-text-color",
+        "type": "color",
+        "label": "Checkout button text color",
+        "default": "#fff"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "addon_products",
+        "name": "Addon Products",
+        "limit": 3,
+        "settings": [
+          {
+            "id": "addon-product",
+            "type": "product",
+            "label": "Select static product for addons"
+          }
+        ]
+      },
+      {
+        "type": "addon_collections",
+        "name": "Addon Collections",
+        "limit": 3,
+        "settings": [
+          {
+            "id": "addon-collection",
+            "type": "collection",
+            "label": "Select a collection that an addon is randomly chosen from"
+          }
+        ]
+      },
+      {
+        "type": "banner_text",
+        "name": "Banner Text",
+        "limit": 4,
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Enter banner title",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
